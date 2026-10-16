@@ -40,7 +40,7 @@ export const SERVICES: Service[] = [
       "Sube un STL, OBJ o 3MF y conviértelo en piezas que encajan, moldes, cortadores de galletas, piezas huecas, alcancías o lámparas.",
     features: [
       "Partir en piezas con espigas, macho-hembra o rosca",
-      "Moldes de dos mitades con guías",
+      "Moldes rígidos, cajas para silicona y moldes para gomitas",
       "Cortadores de galletas, alcancías y lámparas",
       "Tu archivo se procesa en tu navegador",
     ],
