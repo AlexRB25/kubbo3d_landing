@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* Colour tokens. Light by default; dark follows the system unless the visitor picked a theme
+   (data-theme on <html>, set by ThemeToggle and the inline script in layout.tsx). */
+:root {
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --raised: #e8edef;
+  --line: #d3dade;
+  --fg: #12181b;
+  --muted: #56646b;
+  /* The logo's own teal: dark enough for text and buttons on light surfaces. */
+  --brand: #15707f;
+  --on-brand: #ffffff;
+  --glow: rgb(21 112 127 / 0.18);
+  --bad: #c53030;
+  --good: #1f8a5b;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101315;
+    --panel: #181c1f;
+    --raised: #22282c;
+    --line: #2e363b;
+    --fg: #f4f4f6;
+    --muted: #9aa7ad;
+    /* Brightened teal so it reads on dark surfaces; labels on it use the page colour. */
+    --brand: #35c5d6;
+    --on-brand: #101315;
+    --glow: rgb(21 112 127 / 0.55);
+    --bad: #f87171;
+    --good: #34d399;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #101315;
+  --panel: #181c1f;
+  --raised: #22282c;
+  --line: #2e363b;
+  --fg: #f4f4f6;
+  --muted: #9aa7ad;
+  --brand: #35c5d6;
+  --on-brand: #101315;
+  --glow: rgb(21 112 127 / 0.55);
+  --bad: #f87171;
+  --good: #34d399;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+  --color-bad: var(--bad);
+  --color-good: var(--good);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* In the base layer, so size utilities on a heading (text-4xl…) still win. */
+@layer base {
+  h1 {
+    @apply text-2xl font-bold tracking-tight;
+  }
+  h2 {
+    @apply text-lg font-semibold;
+  }
+}
+
+/* The soft teal halo of the logo, behind hero sections. */
+.glow {
+  background: radial-gradient(60% 55% at 50% 40%, var(--glow), transparent 70%);
+}
+
+.btn {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-raised px-3.5 py-2 text-sm font-semibold text-fg transition hover:border-brand disabled:cursor-not-allowed disabled:opacity-50;
+}
+.btn-primary {
+  @apply border-brand bg-brand text-on-brand hover:brightness-110;
+}
+.card {
+  @apply rounded-xl border border-line bg-panel p-5;
+}
+.input {
+  @apply w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-fg outline-none focus:border-brand;
+}
+.label {
+  @apply flex flex-col gap-1 text-xs font-medium text-muted;
+}
+.error {
+  @apply rounded-lg bg-bad/15 px-3 py-2 text-sm text-bad;
+}
