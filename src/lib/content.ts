@@ -69,7 +69,7 @@ export const ABOUT = {
   ],
   values: [
     { title: "Hecho por quienes imprimen", text: "Cada función nace de un problema real del taller." },
-    { title: "Tus archivos son tuyos", text: "Las herramientas 3D trabajan en tu navegador: tu modelo no se sube a ningún servidor." },
+    { title: "Tus archivos son tuyos", text: "Las herramientas 3D trabajan en tu navegador; lo que guardas en Mis archivos es privado y solo lo ves tú." },
     { title: "Una sola cuenta", text: "La misma cuenta sirve en la calculadora, las herramientas y la app móvil." },
   ],
 };
