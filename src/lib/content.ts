@@ -37,10 +37,10 @@ export const SERVICES: Service[] = [
     name: "Herramientas 3D",
     tagline: "Transforma tus archivos",
     description:
-      "Sube un STL, OBJ o 3MF y conviértelo en piezas que encajan, moldes, cortadores de galletas, piezas huecas, alcancías o lámparas.",
+      "Sube un STL, OBJ o 3MF y conviértelo en piezas que encajan, moldes, formas para termoformado, cortadores de galletas, piezas huecas, alcancías o lámparas.",
     features: [
       "Partir en piezas con espigas, macho-hembra o rosca",
-      "Moldes rígidos, cajas para silicona y moldes para gomitas",
+      "Moldes rígidos, cajas para silicona, moldes para gomitas y formas para termoformado",
       "Llaveros, huecos para imanes, cortadores, alcancías y lámparas",
       "Tu archivo se procesa en tu navegador",
     ],
