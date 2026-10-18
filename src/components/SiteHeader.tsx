@@ -15,6 +15,9 @@ export function SiteHeader() {
           <Link href="/#servicios" className="hover:text-fg">
             Servicios
           </Link>
+          <Link href="/precios" className="hover:text-fg">
+            Precios
+          </Link>
           <Link href="/#nosotros" className="hover:text-fg">
             Quiénes somos
           </Link>

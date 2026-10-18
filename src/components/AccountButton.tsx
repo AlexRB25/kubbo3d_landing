@@ -20,6 +20,9 @@ export function AccountButton() {
   return (
     <div className="flex items-center gap-3">
       <span className="hidden max-w-48 truncate text-sm text-muted sm:inline">{session.user.email}</span>
+      <Link href="/cuenta" className="btn">
+        Mi plan
+      </Link>
       <button type="button" className="btn" onClick={() => supabase().auth.signOut()}>
         Salir
       </button>

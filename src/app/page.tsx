@@ -1,11 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
 import { HeroActions } from "@/components/HeroActions";
+import { Pricing } from "@/components/Pricing";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { ServiceLink } from "@/components/ServiceLink";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ABOUT, CONTACT, SERVICES } from "@/lib/content";
+import { loadPlans } from "@/lib/plans";
+import { chargeCurrency, usdRate } from "@/lib/server";
 
-export default function LandingPage() {
+// Plans are edited in Supabase: the page is rebuilt every few minutes to show the changes.
+export const revalidate = 300;
+
+export default async function LandingPage() {
+  const plans = await loadPlans();
   const contact = [
     CONTACT.email && { label: CONTACT.email, href: `mailto:${CONTACT.email}` },
     CONTACT.whatsapp && { label: "WhatsApp", href: `https://wa.me/${CONTACT.whatsapp}` },
@@ -82,6 +90,19 @@ export default function LandingPage() {
               )}
             </ol>
           </div>
+        </section>
+
+        <section id="precios" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16">
+          <h2 className="text-center text-3xl font-bold">Precios</h2>
+          <p className="mt-2 text-center text-muted">Empieza gratis y sube de plan cuando tu taller crezca.</p>
+          <div className="mt-10">
+            <Pricing plans={plans} rate={usdRate()} currency={chargeCurrency()} />
+          </div>
+          <p className="mt-6 text-center text-sm">
+            <Link href="/precios" className="text-brand hover:underline">
+              Preguntas frecuentes sobre los planes
+            </Link>
+          </p>
         </section>
 
         <section id="nosotros" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16">
