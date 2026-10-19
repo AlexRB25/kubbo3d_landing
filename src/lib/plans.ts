@@ -104,7 +104,9 @@ export function planLimits(plan: Plan): string[] {
   return [
     count(plan.max_products, "producto", "productos", "Productos ilimitados"),
     count(plan.max_printers, "impresora", "impresoras", "Impresoras ilimitadas"),
-    plan.tool_runs_month === null ? "Herramientas 3D sin límite" : `${plan.tool_runs_month.toLocaleString("es-MX")} usos de herramientas 3D al mes`,
+    plan.tool_runs_month === null
+      ? "Descargas de herramientas 3D sin límite"
+      : `${plan.tool_runs_month.toLocaleString("es-MX")} descargas de herramientas 3D al mes (probar es libre)`,
     storage(plan.storage_mb),
   ];
 }

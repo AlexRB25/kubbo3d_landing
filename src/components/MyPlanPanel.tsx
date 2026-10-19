@@ -134,7 +134,7 @@ export function MyPlanPanel() {
         <h2 className="text-lg font-bold">Lo que llevas usado</h2>
         <Meter label="Productos" used={usage.products} limit={plan.max_products} />
         <Meter label="Impresoras" used={usage.printers} limit={plan.max_printers} />
-        <Meter label="Herramientas 3D este mes" used={usage.tool_runs_month} limit={plan.tool_runs_month} />
+        <Meter label="Descargas de herramientas 3D este mes" used={usage.tool_downloads_month ?? 0} limit={plan.tool_runs_month} />
         <Meter label="Mis archivos" used={usage.storage_mb} limit={plan.storage_mb} unit=" MB" />
       </section>
     </div>

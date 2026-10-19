@@ -25,7 +25,7 @@ export type Subscription = {
 export type MyPlan = {
   plan: Plan;
   subscription: Subscription | null;
-  usage: { products: number; printers: number; tool_runs_month: number; storage_mb: number };
+  usage: { products: number; printers: number; tool_runs_month: number; tool_downloads_month?: number; storage_mb: number };
 };
 
 /** The signed-in user's plan, subscription and usage (null while loading or signed out). */
