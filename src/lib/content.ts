@@ -41,7 +41,7 @@ export const SERVICES: Service[] = [
     features: [
       "Partir en piezas con espigas, macho-hembra o rosca",
       "Moldes rígidos, cajas para silicona, moldes para gomitas y formas para termoformado",
-      "Llaveros, huecos para imanes, cortadores, alcancías y lámparas",
+      "Llaveros, huecos para imanes, cortadores, alcancías, lámparas y letreros de neón",
       "Tu archivo se procesa en tu navegador",
     ],
     href: base(process.env.PB_TOOLS_URL),
