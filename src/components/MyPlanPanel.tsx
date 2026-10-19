@@ -76,7 +76,9 @@ export function MyPlanPanel() {
   if (!myPlan || !synced) return <p className="text-muted">{synced ? "Cargando tu plan…" : "Activando tu suscripción…"}</p>;
 
   const { plan, subscription, usage } = myPlan;
-  const active = subscription?.status === "authorized";
+  // Given from the admin panel: no charges, it ends on its date (or never).
+  const given = subscription?.source === "admin";
+  const active = subscription?.status === "authorized" && !given;
   const cancelledButPaid = subscription?.status === "cancelled" && subscription.paid_until && new Date(subscription.paid_until) > new Date();
 
   async function cancel() {
@@ -104,17 +106,22 @@ export function MyPlanPanel() {
             {subscription.payer_email}
           </p>
         )}
-        {cancelledButPaid && subscription && (
+        {given && subscription && plan.id === subscription.plan_id && (
+          <p className="text-sm text-muted">
+            Plan asignado por Kubbo3D, sin cobro: {subscription.lifetime ? "es de por vida." : `vence el ${date(subscription.paid_until)}.`}
+          </p>
+        )}
+        {!given && cancelledButPaid && subscription && (
           <p className="text-sm text-muted">Cancelaste tu suscripción: sigues con este plan hasta el {date(subscription.paid_until)} y después pasas a Gratis.</p>
         )}
-        {subscription?.status === "paused" && (
+        {!given && subscription?.status === "paused" && (
           <p className="text-sm text-red-500">Mercado Pago no pudo cobrar tu plan. Revisa tu tarjeta en Mercado Pago para no perderlo.</p>
         )}
         <div className="flex flex-wrap gap-2 pt-1">
           <Link href="/precios" className="btn btn-primary">
             {plan.price_usd > 0 ? "Cambiar de plan" : "Mejorar mi plan"}
           </Link>
-          {(active || subscription?.status === "paused") && (
+          {(active || (!given && subscription?.status === "paused")) && (
             <button type="button" className="btn" onClick={cancel} disabled={busy}>
               {busy ? "Cancelando…" : "Cancelar suscripción"}
             </button>

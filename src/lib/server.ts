@@ -98,6 +98,7 @@ export async function syncPreapproval(id: string): Promise<"ok" | "ignored" | "r
     const others = await db
       .from("subscriptions")
       .select("mp_preapproval_id")
+      .eq("source", "mercadopago")
       .eq("user_id", userId)
       .neq("mp_preapproval_id", id)
       .in("status", ["authorized", "paused"]);

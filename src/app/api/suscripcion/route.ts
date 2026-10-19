@@ -22,9 +22,12 @@ export async function POST(request: Request) {
       .from("subscriptions")
       .select("mp_preapproval_id")
       .eq("user_id", user.id)
+      // Plans given from the admin panel are not in Mercado Pago: only the panel ends them.
+      .eq("source", "mercadopago")
       .in("status", ["authorized", "paused", "pending"]);
     if (active.error) return Response.json({ error: "No se pudo leer tu suscripción." }, { status: 502 });
     for (const { mp_preapproval_id: id } of active.data) {
+      if (!id) continue;
       const cancel = await mercadoPago(`/preapproval/${id}`, { method: "PUT", body: JSON.stringify({ status: "cancelled" }) });
       if (!cancel.ok) return Response.json({ error: "Mercado Pago no respondió. Intenta de nuevo en un momento." }, { status: 502 });
       await syncPreapproval(id);
