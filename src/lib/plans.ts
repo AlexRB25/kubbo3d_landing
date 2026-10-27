@@ -12,6 +12,8 @@ export type Plan = {
   tool_runs_month: number | null;
   storage_mb: number | null;
   color_export: boolean;
+  /** Collaborators the owner can invite to their shop (null = unlimited; missing on older schemas). */
+  max_members?: number | null;
   features: string[];
   highlighted: boolean;
 };
@@ -20,6 +22,7 @@ export type Plan = {
 export const FALLBACK_PLANS: Plan[] = [
   {
     id: "free",
+    max_members: 0,
     name: "Gratis",
     price_usd: 0,
     tagline: "Para probar y para tu primer impresora",
@@ -34,6 +37,7 @@ export const FALLBACK_PLANS: Plan[] = [
   },
   {
     id: "maker",
+    max_members: 1,
     name: "Maker",
     price_usd: 25,
     tagline: "Para quien ya vende sus piezas",
@@ -48,6 +52,7 @@ export const FALLBACK_PLANS: Plan[] = [
   },
   {
     id: "taller",
+    max_members: 3,
     name: "Taller",
     price_usd: 49,
     tagline: "Para un taller con varias impresoras",
@@ -62,6 +67,7 @@ export const FALLBACK_PLANS: Plan[] = [
   },
   {
     id: "fabrica",
+    max_members: 10,
     name: "Fábrica",
     price_usd: 99,
     tagline: "Para una granja de impresoras",
@@ -108,5 +114,8 @@ export function planLimits(plan: Plan): string[] {
       ? "Descargas de herramientas 3D sin límite"
       : `${plan.tool_runs_month.toLocaleString("es-MX")} descargas de herramientas 3D al mes (probar es libre)`,
     storage(plan.storage_mb),
+    ...(plan.max_members === undefined
+      ? []
+      : [plan.max_members === null ? "Colaboradores ilimitados" : plan.max_members === 0 ? "Solo tú (sin colaboradores)" : count(plan.max_members, "colaborador con su propia cuenta", "colaboradores con su propia cuenta", "")]),
   ];
 }
