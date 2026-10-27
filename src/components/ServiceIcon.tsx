@@ -21,6 +21,14 @@ const PATHS: Record<Service["id"], React.ReactNode> = {
       <rect x="46" y="50" width="8" height="18" rx="2" fill="currentColor" fillOpacity={0.3} />
     </>
   ),
+  // A cube on a download arrow.
+  modelos: (
+    <>
+      <path d="M50 10l26 13v26L50 62 24 49V23z" />
+      <path d="M24 23l26 13 26-13M50 36v26" />
+      <path d="M50 70v18M40 80l10 10 10-10" />
+    </>
+  ),
   // A shopping bag with a spool of filament.
   tienda: (
     <>

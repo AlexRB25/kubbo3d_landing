@@ -3,7 +3,7 @@
 const base = (value: string | undefined) => (value ?? "").replace(/\/+$/, "");
 
 export type Service = {
-  id: "calculadora" | "herramientas" | "tienda";
+  id: "calculadora" | "herramientas" | "modelos" | "tienda";
   name: string;
   tagline: string;
   description: string;
@@ -47,6 +47,22 @@ export const SERVICES: Service[] = [
     href: base(process.env.PB_TOOLS_URL),
     cta: "Abrir las herramientas",
     needsAccount: true,
+  },
+  {
+    id: "modelos",
+    name: "Modelos 3D",
+    tagline: "Descarga, compra y vende STL",
+    description:
+      "Modelos STL y 3MF listos para imprimir, gratis y de pago, de makers de México y Latinoamérica. Si diseñas, sube los tuyos y cobra por cada descarga.",
+    features: [
+      "Modelos gratis y de pago, con licencia personal o comercial",
+      "Comentarios, calificaciones y favoritos",
+      "Vende tus diseños: retira a CLABE, Mercado Pago o PayPal",
+      "Pago seguro con Mercado Pago",
+    ],
+    href: base(process.env.PB_CALCULATOR_URL) && `${base(process.env.PB_CALCULATOR_URL)}/modelos`,
+    cta: "Ver los modelos",
+    needsAccount: false,
   },
   {
     id: "tienda",

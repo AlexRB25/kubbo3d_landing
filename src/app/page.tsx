@@ -43,7 +43,7 @@ export default async function LandingPage() {
         <section id="servicios" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16">
           <h2 className="text-center text-3xl font-bold">Nuestros servicios</h2>
           <p className="mt-2 text-center text-muted">Úsalos juntos o por separado.</p>
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {SERVICES.map((service) => (
               <article key={service.id} className="card flex flex-col gap-4">
                 <ServiceIcon id={service.id} />
