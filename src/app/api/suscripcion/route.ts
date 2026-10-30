@@ -1,8 +1,9 @@
-import { adminClient, mercadoPago, paymentsConfigured, syncPreapproval, userFromRequest } from "@/lib/server";
+import { stripe } from "@/lib/stripe";
+import { adminClient, paymentsConfigured, syncSubscription, userFromRequest } from "@/lib/server";
 
 /**
  * The signed-in user's subscription:
- * { action: "sync", id } after coming back from Mercado Pago (activates the plan without waiting for the webhook);
+ * { action: "sync", session } after coming back from Stripe (activates the plan without waiting for the webhook);
  * { action: "cancel" } stops the charges; the plan stays until the end of the month already paid.
  */
 export async function POST(request: Request) {
@@ -12,25 +13,32 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
 
   if (body?.action === "sync") {
-    const result = await syncPreapproval(String(body.id ?? ""));
+    const sessionId = String(body.session ?? "");
+    if (!/^cs_\w{10,200}$/.test(sessionId)) return Response.json({ ok: false });
+    const response = await stripe(`/checkout/sessions/${sessionId}`);
+    if (!response.ok) return Response.json({ ok: false }, { status: response.status === 404 ? 200 : 502 });
+    const session = await response.json();
+    // Only the user who paid can record it.
+    if (session.client_reference_id !== user.id || !session.subscription) return Response.json({ ok: false });
+    const result = await syncSubscription(String(session.subscription));
     return Response.json({ ok: result === "ok" }, { status: result === "retry" ? 502 : 200 });
   }
 
   if (body?.action === "cancel") {
-    const db = adminClient();
-    const active = await db
+    const active = await adminClient()
       .from("subscriptions")
-      .select("mp_preapproval_id")
+      .select("stripe_subscription_id")
       .eq("user_id", user.id)
-      // Plans given from the admin panel are not in Mercado Pago: only the panel ends them.
-      .eq("source", "mercadopago")
+      // Plans given from the admin panel are not in Stripe: only the panel ends them.
+      .eq("source", "stripe")
       .in("status", ["authorized", "paused", "pending"]);
     if (active.error) return Response.json({ error: "No se pudo leer tu suscripción." }, { status: 502 });
-    for (const { mp_preapproval_id: id } of active.data) {
+    for (const { stripe_subscription_id: id } of active.data) {
       if (!id) continue;
-      const cancel = await mercadoPago(`/preapproval/${id}`, { method: "PUT", body: JSON.stringify({ status: "cancelled" }) });
-      if (!cancel.ok) return Response.json({ error: "Mercado Pago no respondió. Intenta de nuevo en un momento." }, { status: 502 });
-      await syncPreapproval(id);
+      // Stops at the end of the month already paid: the plan lasts until then.
+      const cancel = await stripe(`/subscriptions/${id}`, { cancel_at_period_end: true });
+      if (!cancel.ok) return Response.json({ error: "Stripe no respondió. Intenta de nuevo en un momento." }, { status: 502 });
+      await syncSubscription(id);
     }
     return Response.json({ ok: true });
   }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { PRICING_FAQ, Pricing } from "@/components/Pricing";
 import { SiteHeader } from "@/components/SiteHeader";
 import { loadPlans } from "@/lib/plans";
-import { chargeCurrency, usdRate } from "@/lib/server";
 
 export const metadata: Metadata = {
   title: "Precios · Kubbo3D",
@@ -22,7 +21,7 @@ export default async function PricingPage() {
           <h1 className="text-4xl font-bold md:text-5xl">Planes para cada taller</h1>
           <p className="text-lg text-muted">Empieza gratis. Cuando tu taller crezca, sube de plan; cancelas cuando quieras.</p>
         </div>
-        <Pricing plans={plans} rate={usdRate()} currency={chargeCurrency()} />
+        <Pricing plans={plans} />
         <section className="mx-auto flex w-full max-w-3xl flex-col gap-4">
           <h2 className="text-2xl font-bold">Preguntas frecuentes</h2>
           {PRICING_FAQ.map((item) => (

@@ -8,10 +8,10 @@ import { supabase } from "./supabase";
 export type Subscription = {
   id: string;
   plan_id: string;
-  /** Null for plans given from the admin panel. */
-  mp_preapproval_id: string | null;
-  /** "admin": given by Kubbo3D without charging (tests, courtesies). */
-  source: "mercadopago" | "admin";
+  /** The subscription in Stripe; null for plans given from the admin panel. */
+  stripe_subscription_id: string | null;
+  /** "admin": given by Kubbo3D without charging (tests, courtesies); "mercadopago": an old one. */
+  source: "stripe" | "mercadopago" | "admin";
   /** Hand-given plans that never end. */
   lifetime: boolean;
   status: "pending" | "authorized" | "paused" | "cancelled";

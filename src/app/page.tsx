@@ -7,7 +7,6 @@ import { ServiceLink } from "@/components/ServiceLink";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ABOUT, CONTACT, SERVICES } from "@/lib/content";
 import { loadPlans } from "@/lib/plans";
-import { chargeCurrency, usdRate } from "@/lib/server";
 
 // Plans are edited in Supabase: the page is rebuilt every few minutes to show the changes.
 export const revalidate = 300;
@@ -96,7 +95,7 @@ export default async function LandingPage() {
           <h2 className="text-center text-3xl font-bold">Precios</h2>
           <p className="mt-2 text-center text-muted">Empieza gratis y sube de plan cuando tu taller crezca.</p>
           <div className="mt-10">
-            <Pricing plans={plans} rate={usdRate()} currency={chargeCurrency()} />
+            <Pricing plans={plans} />
           </div>
           <p className="mt-6 text-center text-sm">
             <Link href="/precios" className="text-brand hover:underline">

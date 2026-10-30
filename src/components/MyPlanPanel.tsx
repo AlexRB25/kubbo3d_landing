@@ -45,17 +45,17 @@ function Meter({ label, used, limit, unit = "" }: { label: string; used: number;
 export function MyPlanPanel() {
   const { session, loading } = useSession();
   const params = useSearchParams();
-  const returning = params.get("preapproval_id");
+  const returning = params.get("session_id");
   const [version, setVersion] = useState(0);
   const [synced, setSynced] = useState(!returning);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
   const { myPlan, error } = useMyPlan(version);
 
-  // Back from Mercado Pago: record the new subscription now instead of waiting for the webhook.
+  // Back from Stripe: record the new subscription now instead of waiting for the webhook.
   useEffect(() => {
     if (!returning || !session || synced) return;
-    manage({ action: "sync", id: returning }).then(() => {
+    manage({ action: "sync", session: returning }).then(() => {
       setSynced(true);
       setVersion((value) => value + 1);
     });
@@ -102,8 +102,8 @@ export function MyPlanPanel() {
         </div>
         {active && subscription && (
           <p className="text-sm text-muted">
-            Próximo cobro: {date(subscription.next_payment_date)} · ${subscription.amount.toLocaleString("es-MX")} {subscription.currency} a{" "}
-            {subscription.payer_email}
+            Próximo cobro: {date(subscription.next_payment_date)} · {subscription.amount.toLocaleString("es-MX")} {subscription.currency}
+            {subscription.payer_email && ` · ${subscription.payer_email}`}
           </p>
         )}
         {given && subscription && plan.id === subscription.plan_id && (
@@ -115,7 +115,7 @@ export function MyPlanPanel() {
           <p className="text-sm text-muted">Cancelaste tu suscripción: sigues con este plan hasta el {date(subscription.paid_until)} y después pasas a Gratis.</p>
         )}
         {!given && subscription?.status === "paused" && (
-          <p className="text-sm text-red-500">Mercado Pago no pudo cobrar tu plan. Revisa tu tarjeta en Mercado Pago para no perderlo.</p>
+          <p className="text-sm text-red-500">No pudimos cobrar tu plan con tu tarjeta. Revisa que tenga fondos o suscríbete de nuevo con otra para no perderlo.</p>
         )}
         <div className="flex flex-wrap gap-2 pt-1">
           <Link href="/precios" className="btn btn-primary">

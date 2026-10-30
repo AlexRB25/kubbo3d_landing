@@ -3,8 +3,8 @@ import { PlanButton } from "./PlanButton";
 
 const money = (value: number) => value.toLocaleString("es-MX", { maximumFractionDigits: 0 });
 
-/** The plan cards. `rate` = pesos per dollar charged (0 when not configured). */
-export function Pricing({ plans, rate, currency }: { plans: Plan[]; rate: number; currency: string }) {
+/** The plan cards: prices in dollars, charged in the currency each customer picks. */
+export function Pricing({ plans }: { plans: Plan[] }) {
   return (
     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       {plans.map((plan) => (
@@ -30,7 +30,7 @@ export function Pricing({ plans, rate, currency }: { plans: Plan[]; rate: number
                   <span className="text-sm text-muted">/ mes</span>
                 </p>
                 <p className="text-xs text-muted">
-                  {rate > 0 ? `Se cobra en pesos: $${money(Math.round(plan.price_usd * rate))} ${currency} al mes` : "Se cobra en pesos al tipo de cambio"}
+                  Pagas en tu moneda (pesos, soles, dólares…) al tipo de cambio del día
                 </p>
               </>
             ) : (
@@ -72,7 +72,7 @@ export function Pricing({ plans, rate, currency }: { plans: Plan[]; rate: number
 export const PRICING_FAQ = [
   {
     q: "¿En qué moneda me cobran?",
-    a: "Los precios están en dólares y Mercado Pago cobra en pesos mexicanos cada mes, con el monto que ves en cada plan. Puedes pagar con tarjeta de crédito, débito o con tu saldo de Mercado Pago.",
+    a: "Los precios están en dólares y al suscribirte eliges en qué moneda pagar: pesos mexicanos, colombianos, argentinos, soles, dólares, euros y más. Se cobra cada mes con tu tarjeta de crédito o débito (de cualquier país), al tipo de cambio del día en que te suscribes. El pago lo procesa Stripe.",
   },
   {
     q: "¿Puedo cancelar cuando quiera?",
@@ -84,7 +84,7 @@ export const PRICING_FAQ = [
   },
   {
     q: "¿Cómo cambio de plan?",
-    a: "Elige el nuevo plan aquí mismo. En cuanto Mercado Pago lo activa, el anterior se cancela solo para que no pagues dos.",
+    a: "Elige el nuevo plan aquí mismo. En cuanto se activa, el anterior se cancela solo para que no pagues dos.",
   },
   {
     q: "¿Una suscripción sirve para todo Kubbo3D?",
