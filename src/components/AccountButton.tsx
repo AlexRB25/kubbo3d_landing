@@ -19,6 +19,10 @@ export function AccountButton() {
   }
   return (
     <div className="flex items-center gap-3">
+      {session.user.user_metadata.avatar_url && (
+        // eslint-disable-next-line @next/next/no-img-element -- the Google photo, from Google's own servers
+        <img src={session.user.user_metadata.avatar_url} alt="" referrerPolicy="no-referrer" className="h-8 w-8 shrink-0 rounded-full" />
+      )}
       <span className="hidden max-w-48 truncate text-sm text-muted sm:inline">{session.user.email}</span>
       <Link href="/cuenta" className="btn">
         Mi plan
