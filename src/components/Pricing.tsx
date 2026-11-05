@@ -1,7 +1,11 @@
 import { planLimits, type Plan } from "@/lib/plans";
 import { PlanButton } from "./PlanButton";
 
-const money = (value: number) => value.toLocaleString("es-MX", { maximumFractionDigits: 0 });
+// 25 stays "25"; 4.99 shows its cents.
+const money = (value: number) => Number(value).toLocaleString("es-MX", { minimumFractionDigits: Number.isInteger(Number(value)) ? 0 : 2, maximumFractionDigits: 2 });
+
+/** The price before, when the plan is on promotion (and really was higher). */
+const before = (plan: Plan) => (plan.compare_usd && Number(plan.compare_usd) > Number(plan.price_usd) ? Number(plan.compare_usd) : null);
 
 /** The plan cards: prices in dollars, charged in the currency each customer picks. */
 export function Pricing({ plans }: { plans: Plan[] }) {
@@ -24,7 +28,18 @@ export function Pricing({ plans }: { plans: Plan[] }) {
           <div>
             {plan.price_usd > 0 ? (
               <>
+                {before(plan) !== null && (
+                  <p className="flex flex-wrap items-center gap-2 text-sm">
+                    <span className="text-muted">
+                      Antes <s>USD {money(before(plan)!)}</s>
+                    </span>
+                    <span className="rounded-full bg-brand px-2 py-0.5 text-xs font-bold text-on-brand">
+                      Promoción −{Math.round((1 - Number(plan.price_usd) / before(plan)!) * 100)} %
+                    </span>
+                  </p>
+                )}
                 <p className="flex items-baseline gap-1">
+                  {before(plan) !== null && <span className="text-sm font-semibold text-brand">Ahora</span>}
                   <span className="text-sm font-semibold text-muted">USD</span>
                   <span className="text-4xl font-black">{money(plan.price_usd)}</span>
                   <span className="text-sm text-muted">/ mes</span>

@@ -5,6 +5,8 @@ export type Plan = {
   id: string;
   name: string;
   price_usd: number;
+  /** Price before the promotion, shown crossed out (null = no promotion; missing on older schemas). */
+  compare_usd?: number | null;
   tagline: string;
   sort: number;
   max_products: number | null;
@@ -39,7 +41,8 @@ export const FALLBACK_PLANS: Plan[] = [
     id: "maker",
     max_members: 1,
     name: "Maker",
-    price_usd: 25,
+    price_usd: 4.99,
+    compare_usd: 25,
     tagline: "Para quien ya vende sus piezas",
     sort: 1,
     max_products: 150,
@@ -54,7 +57,8 @@ export const FALLBACK_PLANS: Plan[] = [
     id: "taller",
     max_members: 3,
     name: "Taller",
-    price_usd: 49,
+    price_usd: 19.99,
+    compare_usd: 49,
     tagline: "Para un taller con varias impresoras",
     sort: 2,
     max_products: null,
@@ -69,7 +73,8 @@ export const FALLBACK_PLANS: Plan[] = [
     id: "fabrica",
     max_members: 10,
     name: "Fábrica",
-    price_usd: 99,
+    price_usd: 24.99,
+    compare_usd: 99,
     tagline: "Para una granja de impresoras",
     sort: 3,
     max_products: null,
