@@ -135,6 +135,12 @@ export default async function LandingPage() {
                 {service.name}
               </a>
             ))}
+            <a href="/privacidad" className="hover:text-fg">
+              Privacidad
+            </a>
+            <a href="/eliminar-cuenta" className="hover:text-fg">
+              Eliminar cuenta
+            </a>
             {contact.map((item) => (
               <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className="hover:text-fg">
                 {item.label}

@@ -90,6 +90,9 @@ export const ABOUT = {
   ],
 };
 
+/** Where people write about their data (privacy policy and account deletion). It must be a mailbox someone reads. */
+export const PRIVACY_EMAIL = "soporte@kubbo3d.com";
+
 /** Shown in the footer only when filled in. */
 export const CONTACT = {
   email: "",
