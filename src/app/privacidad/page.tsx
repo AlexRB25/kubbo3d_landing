@@ -24,6 +24,7 @@ const SECTIONS: { title: string; body: (string | string[])[] }[] = [
         "Los datos de tu taller que tú capturas: impresoras, filamentos, productos, trabajos de impresión, ventas, gastos, mantenimiento, proveedores y colaboradores.",
         "Las fotos y archivos que subes (por ejemplo, fotos de tus productos o archivos STL en Mis archivos).",
         "Si usas la tienda: los pedidos de tus clientes con su nombre, correo, teléfono y dirección de envío, para que puedas entregarlos.",
+        "Si das de alta clientes o les haces cotizaciones: los datos que tú escribes de ellos (nombre, contacto, nombre fiscal, ID fiscal y los campos de facturación que agregues). Tú eres responsable de tener su permiso para guardarlos.",
         "Si vendes modelos en el marketplace: los datos para pagarte (método, cuenta y titular).",
         "Tu suscripción: plan, estado y fechas. Los datos de tu tarjeta los recibe y guarda Stripe; nosotros no los vemos.",
         "Uso básico: los días en que usas la app y cuántas veces usas las herramientas, para aplicar los límites de tu plan.",

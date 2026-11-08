@@ -23,7 +23,20 @@ export default function DeleteAccountPage() {
         </div>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-bold">Cómo pedirlo</h2>
+          <h2 className="text-xl font-bold">Desde la app o la web</h2>
+          <ol className="flex list-decimal flex-col gap-1.5 pl-5 leading-relaxed text-muted">
+            <li>
+              En la app Kubbo3D: <strong className="text-fg">Más → Eliminar mi cuenta</strong>.
+            </li>
+            <li>
+              En la calculadora web: <strong className="text-fg">Ajustes → Eliminar mi cuenta</strong>.
+            </li>
+            <li>Escribe ELIMINAR para confirmar. Tu cuenta y tus datos se borran en ese momento y tu plan se cancela.</li>
+          </ol>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-bold">Si ya no puedes entrar</h2>
           <ol className="flex list-decimal flex-col gap-1.5 pl-5 leading-relaxed text-muted">
             <li>Si tienes una suscripción, cancélala primero en Mi plan para que no se te vuelva a cobrar.</li>
             <li>
@@ -31,6 +44,7 @@ export default function DeleteAccountPage() {
               «Eliminar mi cuenta de Kubbo3D».
             </li>
             <li>Te confirmamos por correo cuando esté hecho, en un máximo de 30 días.</li>
+            <li>Si vendiste modelos en el marketplace, tu cuenta se cierra por este medio para no quitárselos a quienes los compraron.</li>
           </ol>
           <a className="btn btn-primary self-start" href={`mailto:${PRIVACY_EMAIL}?subject=${subject}&body=${body}`}>
             Pedir la eliminación por correo
