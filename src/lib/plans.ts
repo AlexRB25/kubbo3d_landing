@@ -16,6 +16,8 @@ export type Plan = {
   color_export: boolean;
   /** Collaborators the owner can invite to their shop (null = unlimited; missing on older schemas). */
   max_members?: number | null;
+  /** 3D scans included each month (missing on older schemas). */
+  scans_month?: number;
   features: string[];
   highlighted: boolean;
 };
@@ -40,6 +42,7 @@ export const FALLBACK_PLANS: Plan[] = [
   {
     id: "maker",
     max_members: 1,
+    scans_month: 0,
     name: "Maker",
     price_usd: 4.99,
     compare_usd: 25,
@@ -56,6 +59,7 @@ export const FALLBACK_PLANS: Plan[] = [
   {
     id: "taller",
     max_members: 3,
+    scans_month: 2,
     name: "Taller",
     price_usd: 19.99,
     compare_usd: 49,
@@ -72,6 +76,7 @@ export const FALLBACK_PLANS: Plan[] = [
   {
     id: "fabrica",
     max_members: 10,
+    scans_month: 5,
     name: "Fábrica",
     price_usd: 24.99,
     compare_usd: 99,
@@ -119,6 +124,7 @@ export function planLimits(plan: Plan): string[] {
       ? "Descargas de herramientas 3D sin límite"
       : `${plan.tool_runs_month.toLocaleString("es-MX")} descargas de herramientas 3D al mes (probar es libre)`,
     storage(plan.storage_mb),
+    ...(plan.scans_month ? [`${plan.scans_month} escaneos 3D al mes (y paquetes extra)`] : plan.price_usd > 0 && plan.scans_month === 0 ? ["Escáner 3D con paquetes de escaneos"] : []),
     ...(plan.max_members === undefined
       ? []
       : [plan.max_members === null ? "Colaboradores ilimitados" : plan.max_members === 0 ? "Solo tú (sin colaboradores)" : count(plan.max_members, "colaborador con su propia cuenta", "colaboradores con su propia cuenta", "")]),
