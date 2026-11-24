@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description: "Qué datos guarda Kubbo3D, para qué los usa, con quién los comparte y cómo borrarlos.",
 };
 
-const UPDATED = "7 de noviembre de 2026";
+const UPDATED = "24 de noviembre de 2026";
 
 const SECTIONS: { title: string; body: (string | string[])[] }[] = [
   {
     title: "Quiénes somos",
     body: [
-      "Kubbo3D es un conjunto de servicios para talleres de impresión 3D: la calculadora de costos (web y app móvil), las herramientas 3D, la tienda en línea de cada taller y el marketplace de modelos. Este aviso aplica a todos ellos, incluida la app Kubbo3D para Android e iOS.",
+      "Kubbo3D es un conjunto de servicios para talleres de impresión 3D: la calculadora de costos (web y app móvil), las herramientas 3D, el escáner 3D, la tienda en línea de cada taller, la Tienda Kubbo, el marketplace de modelos y los anuncios de equipos y servicio técnico. Este aviso aplica a todos ellos, incluida la app Kubbo3D para Android e iOS.",
     ],
   },
   {
@@ -25,7 +25,10 @@ const SECTIONS: { title: string; body: (string | string[])[] }[] = [
         "Las fotos y archivos que subes (por ejemplo, fotos de tus productos o archivos STL en Mis archivos).",
         "Si usas la tienda: los pedidos de tus clientes con su nombre, correo, teléfono y dirección de envío, para que puedas entregarlos.",
         "Si das de alta clientes o les haces cotizaciones: los datos que tú escribes de ellos (nombre, contacto, nombre fiscal, ID fiscal y los campos de facturación que agregues). Tú eres responsable de tener su permiso para guardarlos.",
-        "Si vendes modelos en el marketplace: los datos para pagarte (método, cuenta y titular).",
+        "Si vendes modelos en el marketplace: los datos para pagarte (método, cuenta y titular). Si compras: qué modelos compraste, para darte acceso a ellos.",
+        "Si publicas un anuncio de equipo o tu perfil de técnico: lo que escribes, las fotos y el WhatsApp que pones para que te contacten. Eso lo ve cualquier visitante.",
+        "Si usas el escáner 3D: las fotos que tomas y el modelo que resulta.",
+        "Si envías un reclamo de derechos de autor: tu nombre, tu correo y las pruebas que adjuntes.",
         "Tu suscripción: plan, estado y fechas. Los datos de tu tarjeta los recibe y guarda Stripe; nosotros no los vemos.",
         "Uso básico: los días en que usas la app y cuántas veces usas las herramientas, para aplicar los límites de tu plan.",
         "Los reportes de fallas que nos envías, con la captura de pantalla que adjuntes.",
@@ -60,6 +63,7 @@ const SECTIONS: { title: string; body: (string | string[])[] }[] = [
         "Stripe: procesa los pagos de las suscripciones y de la tienda.",
         "Resend: envía los correos.",
         "Google: inicio de sesión con Google y, solo si usas la función de redibujar con IA, procesa la imagen que envías.",
+        "KIRI Engine: solo si usas el escáner 3D, recibe tus fotos para formar el modelo.",
       ],
       "Los colaboradores que invitas a tu taller ven los datos del taller. Los compradores de tu tienda ven lo que tú publicas en ella. Podemos entregar datos a una autoridad solo cuando la ley nos obligue.",
     ],
@@ -79,7 +83,7 @@ const SECTIONS: { title: string; body: (string | string[])[] }[] = [
   {
     title: "Tus derechos",
     body: [
-      "Puedes ver y corregir tus datos desde la app o la web en cualquier momento. También puedes pedirnos una copia, oponerte a algún uso o eliminar tu cuenta (derechos ARCO). Para eliminarla sigue los pasos en kubbo3d.com/eliminar-cuenta.",
+      "Puedes ver y corregir tus datos desde la app o la web en cualquier momento. También puedes pedirnos una copia, oponerte a algún uso o eliminar tu cuenta (derechos ARCO). Para eliminarla sigue los pasos en kubbo3d.com/eliminar-cuenta. Las reglas de uso están en los Términos y condiciones (kubbo3d.com/terminos).",
     ],
   },
   {

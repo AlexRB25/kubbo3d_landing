@@ -138,6 +138,9 @@ export default async function LandingPage() {
             <a href="/privacidad" className="hover:text-fg">
               Privacidad
             </a>
+            <a href="/terminos" className="hover:text-fg">
+              Términos
+            </a>
             <a href="/eliminar-cuenta" className="hover:text-fg">
               Eliminar cuenta
             </a>

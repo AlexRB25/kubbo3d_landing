@@ -120,6 +120,17 @@ function SignInForm() {
       >
         {isRegister ? "Ya tengo cuenta" : "Crear una cuenta"}
       </button>
+      <p className="text-center text-xs text-muted">
+        Al continuar aceptas los{" "}
+        <a href={`/terminos`} target="_blank" rel="noreferrer" className="underline hover:text-fg">
+          Términos y condiciones
+        </a>{" "}
+        y el{" "}
+        <a href={`/privacidad`} target="_blank" rel="noreferrer" className="underline hover:text-fg">
+          Aviso de privacidad
+        </a>
+        .
+      </p>
     </form>
   );
 }
